@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Penghitung Digital</title>
+<style>
+  body {font-family: Arial, sans-serif;text-align: center;margin: 0;padding: 0;background:blueviolet;}
+  .timer {font-size: 72px;color: red;margin-top: 100px;}
+  .tombol {margin-top: 20px;}
+  button {font-size: 16px;padding: 10px 20px;margin: 0 10px;background: white;color: black;border: none;border-radius: 5px;cursor: pointer;}
+</style>
+</head>
+<body>
+  <div class="timer">000:00</div>
+  <div class="tombol">
+    <button id="mulai">Mulai</button>
+    <button id="henti">Henti</button>
+    <button id="reset">Reset</button>
+  </div>
+  <script>
+    let intervalId, sentiseconds = 0, detik = 0;
+    const tampilanTimer = document.querySelector(".timer"), tombolMulai = document.getElementById("mulai"), tombolHenti = document.getElementById("henti"), tombolReset = document.getElementById("reset");
+    function perbaruiTampilanTimer() {
+      tampilanTimer.textContent = `${detik.toString().padStart(3, '0')}:${sentiseconds.toString().padStart(2, '0')}`;
+    }
+    function mulaiTimer() {
+      intervalId = setInterval(function() {
+        sentiseconds++;
+        if (sentiseconds === 100) {
+          sentiseconds = 0;
+          detik++;
+          if (detik === 1000) {detik = 0;}
+        }
+        perbaruiTampilanTimer();
+      }, 10);
+      tombolMulai.disabled = true;
+      tombolHenti.disabled = false;
+      tombolReset.disabled = false;
+    }
+    function hentiTimer() {
+      clearInterval(intervalId);
+      tombolMulai.disabled = false;
+      tombolHenti.disabled = true;
+      tombolReset.disabled = false;
+    }
+    function resetTimer() {
+      clearInterval(intervalId);
+      sentiseconds = 0;
+      detik = 0;
+      perbaruiTampilanTimer();
+      tombolMulai.disabled = false;
+      tombolHenti.disabled = true;
+      tombolReset.disabled = true;
+    }
+    tombolMulai.addEventListener("click", mulaiTimer);
+    tombolHenti.addEventListener("click", hentiTimer);
+    tombolReset.addEventListener("click", resetTimer);
+  </script>
+</body>
+</html>

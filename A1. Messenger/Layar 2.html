@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Messenger</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: darkgray;
+  }
+
+  .chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px;
+    background-color: white;
+  }
+
+  .chat-avatar {
+    width: 40px;
+    margin-right: 12px;
+
+  }
+
+  .chat-info {
+    flex: 1;
+  }
+
+  .name {
+    font-weight: bold;
+    font-size: 16px;
+    color: black;
+  }
+
+  .status {
+    font-size: 14px;
+    color: blue;
+  }
+
+  .chat-options {
+    color: black;
+    font-size: 20px;
+  }
+
+  .chat-messages {
+    padding: 16px;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .message-content {
+    background-color: white;
+    padding: 10px 12px;
+    max-width: 70%;
+  }
+
+  .message-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background-color: white;
+
+  }
+
+  .input-field {
+    flex: 1;
+    padding: 10px 12px;
+    background-color: darkgray;
+    font-size: 14px;
+    color: black;
+  }
+
+  .send-button {
+    padding: 8px 16px;
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+  .send-button:hover {
+    background-color: darkgray;
+  }
+
+  .message-avatar {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .message.sent .message-avatar {
+    margin-left: 15px;
+  }
+
+  .message-content {
+    margin-right: 8px;
+    margin-left: 0;
+  }
+
+  .message.sent .message-content {
+    margin-right: 0;
+    margin-left: 1100px;
+  }
+</style>
+</head>
+<body>
+  <div class="chat-header">
+    <img src="Rossi.png" alt="Avatar 2" class="chat-avatar">
+    <div class="chat-info">
+      <div class="name">Rossi Firmanda</div>
+      <div class="status">Online</div>
+    </div>
+    <div class="chat-options">...</div>
+  </div>
+
+  <div class="chat-messages">
+    <div class="message">
+      <div class="message-content">How are you guys.</div>
+    </div>
+    <div class="message sent">
+      <div class="message-content">I'm good! How about you?</div>
+    </div>
+
+    <!-- Tambahkan pesan lainnya di sini -->
+  </div>
+  <div class="message-input">
+    <input id="message-input" type="text" class="input-field" placeholder="Ketik pesan...">
+    <button id="send-button" class="send-button">Kirim</button>
+  </div>
+
+  <script>
+    const messageInput = document.getElementById("message-input");
+    const sendButton = document.getElementById("send-button");
+    const chatMessages = document.querySelector(".chat-messages");
+
+    sendButton.addEventListener("click", function() {
+      const messageText = messageInput.value;
+      if (messageText.trim() !== "") {
+        const newMessage = createMessageElement(messageText, true);
+        chatMessages.appendChild(newMessage);
+        messageInput.value = "";
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    });
+
+    function createMessageElement(text, isSent) {
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("message");
+      
+
+      const contentDiv = document.createElement("div");
+      contentDiv.classList.add("message-content");
+      contentDiv.textContent = text;
+      
+      if (isSent) {
+        messageDiv.classList.add("sent");
+        contentDiv.classList.add("sent-content");
+      }
+      
+      messageDiv.appendChild(contentDiv);
+      
+      return messageDiv;
+    }
+  </script>
+</body>
+</html>

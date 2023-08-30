@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>C1 Canvas Animation</title>
+    <style>
+        #container {
+            width: 400px;
+            height: 320px;
+            position: relative;
+            overflow: hidden;
+            background-color: green;
+        }
+
+        canvas {
+            position: absolute;
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <canvas id="circleCanvas" width="400" height="320"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('circleCanvas');
+        const context = canvas.getContext('2d');
+        const circleRadius = 30;
+        let circleX = -circleRadius;
+        const circleY = canvas.height / 2;
+        const circleSpeed = 2;
+        const circleColor = 'white';
+        const containerColor = 'darkgreen';
+
+        function drawCircle(x, y) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.beginPath();
+            context.arc(x, y, circleRadius, 0, Math.PI * 2);
+            context.fillStyle = circleColor;
+            context.fill();
+            context.closePath();
+        }
+
+        function moveCircle() {
+            circleX += circleSpeed;
+            if (circleX > canvas.width + circleRadius) {
+                circleX = -circleRadius;
+            }
+            drawCircle(circleX, circleY);
+            requestAnimationFrame(moveCircle);
+        }
+
+        drawCircle(circleX, circleY);
+        moveCircle();
+    </script>
+</body>
+</html>

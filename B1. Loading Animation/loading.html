@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+ .loading-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: white;);
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  width: 120px;
+  height: 60px;
+}
+
+.loading div {
+  width: 24px;
+  height: 24px;
+  background-color: #ccc;
+  border-radius: 50%;
+  animation: pulse 1s infinite;
+  animation-delay: calc(0.25s * var(--index));
+}
+
+.loading div:nth-child(1) {
+  background-color: green;
+}
+
+.loading div:nth-child(2) {
+  background-color: grey;
+}
+
+.loading div:nth-child(3) {
+  background-color: darkblue;
+}
+
+.loading div:nth-child(4) {
+  background-color: black;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.6); }
+}
+
+</style>
+</head>
+<body>
+  <div class="loading-animation">
+    <div class="loading">
+      <div style="--index: 1;"></div>
+      <div style="--index: 2;"></div>
+      <div style="--index: 3;"></div>
+      <div style="--index: 4;"></div>
+    </div>
+  </div>
+</body>
+</html>

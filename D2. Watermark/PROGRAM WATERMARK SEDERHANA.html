@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Watermark</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            margin-bottom: 10px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        #hasilContainer {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Aplikasi Watermark</h1>
+    <input type="file" id="inputGambar" accept="image/*">
+    <input type="file" id="inputLogo" accept=".png">
+    <button id="tombolWatermark">Tambah Watermark</button>
+    <div id="hasilContainer">
+        <h2>Hasil</h2>
+        <img id="gambarHasil" alt="Gambar Hasil">
+    </div>
+    <script>
+        const inputGambar = document.getElementById("inputGambar");
+const inputLogo = document.getElementById("inputLogo");
+const tombolWatermark = document.getElementById("tombolWatermark");
+const gambarHasil = document.getElementById("gambarHasil");
+
+tombolWatermark.addEventListener("click", () => {
+    const berkasGambar = inputGambar.files[0];
+    const berkasLogo = inputLogo.files[0];
+
+    if (berkasGambar && berkasLogo) {
+        const gambar = new Image();
+        const logo = new Image();
+
+        gambar.onload = () => {
+            const kanvas = document.createElement("canvas");
+            kanvas.width = gambar.width;
+            kanvas.height = gambar.height;
+            const ctx = kanvas.getContext("2d");
+
+            ctx.drawImage(gambar, 0, 0);
+            ctx.drawImage(logo, kanvas.width - logo.width, 0, logo.width, logo.height);
+
+            const dataURLHasil = kanvas.toDataURL("image/jpeg");
+
+            gambarHasil.src = dataURLHasil;
+        };
+
+        gambar.src = URL.createObjectURL(berkasGambar);
+        logo.src = URL.createObjectURL(berkasLogo);
+    }
+});
+
+    </script>
+</body>
+</html>

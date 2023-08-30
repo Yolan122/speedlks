@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watermark App</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+h1, h2 {
+    margin-bottom: 10px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+#outputContainer {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Watermark App</h1>
+    <input type="file" id="imageInput" accept="image/*">
+    <input type="file" id="logoInput" accept=".png">
+    <button id="watermarkButton">Add Watermark</button>
+    <div id="outputContainer">
+        <h2>Output</h2>
+        <img id="outputImage" alt="Output Image">
+    </div>
+    <script>
+        const imageInput = document.getElementById("imageInput");
+const logoInput = document.getElementById("logoInput");
+const watermarkButton = document.getElementById("watermarkButton");
+const outputImage = document.getElementById("outputImage");
+
+watermarkButton.addEventListener("click", () => {
+    const imageFile = imageInput.files[0];
+    const logoFile = logoInput.files[0];
+
+    if (imageFile && logoFile) {
+        const image = new Image();
+        const logo = new Image();
+
+        image.onload = () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = image.width;
+            canvas.height = image.height;
+            const ctx = canvas.getContext("2d");
+
+            ctx.drawImage(image, 0, 0);
+            ctx.drawImage(logo, canvas.width - logo.width, 0, logo.width, logo.height);
+
+            const outputDataURL = canvas.toDataURL("image/jpeg");
+
+            outputImage.src = outputDataURL;
+        };
+
+        image.src = URL.createObjectURL(imageFile);
+        logo.src = URL.createObjectURL(logoFile);
+    }
+});
+
+    </script>
+</body>
+</html>

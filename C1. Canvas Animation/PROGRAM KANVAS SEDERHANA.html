@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animasi Lingkaran C1</title>
+    <style>
+        #kontainer {
+            width: 400px;
+            height: 320px;
+            position: relative;
+            overflow: hidden;
+            background-color: green;
+        }
+
+        canvas {
+            position: absolute;
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div id="kontainer">
+        <canvas id="lingkaranCanvas" width="400" height="320"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('lingkaranCanvas');
+        const konteks = canvas.getContext('2d');
+        const radiusLingkaran = 30;
+        let xLingkaran = -radiusLingkaran;
+        const yLingkaran = canvas.height / 2;
+        const kecepatanLingkaran = 2;
+        const warnaLingkaran = 'putih';
+        const warnaKontainer = 'darkgreen';
+
+        function gambarLingkaran(x, y) {
+            konteks.clearRect(0, 0, canvas.width, canvas.height);
+            konteks.beginPath();
+            konteks.arc(x, y, radiusLingkaran, 0, Math.PI * 2);
+            konteks.fillStyle = warnaLingkaran;
+            konteks.fill();
+            konteks.closePath();
+        }
+
+        function pindahLingkaran() {
+            xLingkaran += kecepatanLingkaran;
+            if (xLingkaran > canvas.width + radiusLingkaran) {
+                xLingkaran = -radiusLingkaran;
+            }
+            gambarLingkaran(xLingkaran, yLingkaran);
+            requestAnimationFrame(pindahLingkaran);
+        }
+
+        gambarLingkaran(xLingkaran, yLingkaran);
+        pindahLingkaran();
+    </script>
+</body>
+</html>

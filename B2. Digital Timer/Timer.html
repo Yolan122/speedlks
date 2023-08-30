@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Timer</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background:blueviolet;
+  }
+  
+  .timer {
+    font-size: 72px;
+    color: red;
+    margin-top: 100px;
+  }
+  
+  .buttons {
+    margin-top: 20px;
+  }
+  
+  button {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  
+  
+  }
+</style>
+</head>
+<body>
+  <div class="timer">000:00</div>
+  <div class="buttons">
+    <button id="start">Start Timer</button>
+    <button id="stop">Stop Timer</button>
+    <button id="reset">Reset Timer</button>
+  </div>
+
+  <script>
+    let intervalId;
+    let centiseconds = 0;
+    let seconds = 0;
+
+    const timerDisplay = document.querySelector(".timer");
+    const startButton = document.getElementById("start");
+    const stopButton = document.getElementById("stop");
+    const resetButton = document.getElementById("reset");
+
+    function updateTimerDisplay() {
+      timerDisplay.textContent = `${seconds.toString().padStart(3, '0')}:${centiseconds.toString().padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+      intervalId = setInterval(function() {
+        centiseconds++;
+        if (centiseconds === 100) {
+          centiseconds = 0;
+          seconds++;
+          if (seconds === 1000) {
+            seconds = 0;
+          }
+        }
+        updateTimerDisplay();
+      }, 10);
+      startButton.disabled = true;
+      stopButton.disabled = false;
+      resetButton.disabled = false;
+    }
+
+    function stopTimer() {
+      clearInterval(intervalId);
+      startButton.disabled = false;
+      stopButton.disabled = true;
+      resetButton.disabled = false;
+    }
+
+    function resetTimer() {
+      clearInterval(intervalId);
+      centiseconds = 0;
+      seconds = 0;
+      updateTimerDisplay();
+      startButton.disabled = false;
+      stopButton.disabled = true;
+      resetButton.disabled = true;
+    }
+
+    startButton.addEventListener("click", startTimer);
+    stopButton.addEventListener("click", stopTimer);
+    resetButton.addEventListener("click", resetTimer);
+  </script>
+</body>
+</html>

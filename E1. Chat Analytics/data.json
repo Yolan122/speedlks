@@ -1,0 +1,12 @@
+[
+    { "type": "sent", "content": "Hello there!" },
+    { "type": "received", "content": "Hi, how are you?" },
+    { "type": "sent", "content": "I'm doing great, thanks!" },
+    { "type": "received", "content": "That's good to hear." },
+    { "type": "sent", "content": "What have you been up to?" },
+    { "type": "received", "content": "Just working on some projects." },
+    { "type": "received", "content": "How about you?" },
+    { "type": "sent", "content": "I've been studying for exams." },
+    { "type": "received", "content": "Best of luck with your exams!" },
+    { "type": "sent", "content": "Thank you!" }
+]
